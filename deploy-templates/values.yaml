@@ -1,0 +1,61 @@
+global:
+  disableRequestsLimits: false
+
+image:
+  name: bp-webservice-gateway
+  version: latest
+port: 8080
+service:
+  type: ClusterIP
+  port: 8080
+replicas: 1
+appConfigMountPath: "/app/config/main"
+trembitaBusinessProcessesConfigMountPath: "/app/config/trembita-business-processes"
+trembitaInvokerKeycloakClientSecretsMountPath: "/app/secrets/trembita-invoker-client"
+cephSecretMountPath: "/app/secrets/ceph"
+readinessPath: "/actuator/health/readiness"
+livenessPath: "/actuator/health/liveness"
+
+ingress: # expose the service with a route or an ingress depending on platform type
+  platform: openshift # openshift or kubernetes
+
+keycloak:
+  trembitaInvokerClient:
+    clientName: trembita-invoker
+    secretName: keycloak-trembita-invoker-client-secret
+    realm: external-system
+
+ceph:
+  bucketName: lowcode-form-data-storage
+  host: ${CEPH_BUCKET_HOST}
+
+s3:
+  config:
+    client:
+      protocol: http
+    options:
+      pathStyleAccess: true
+
+bpmsUrl: http://bpms:8080
+dsoURL: http://digital-signature-ops:8080
+zipkinBaseUrl: http://zipkin.istio-system:9411
+
+deployProfile: prod
+
+javaOpts: "-Xms512m -Xmx512m"
+
+kong:
+  ingressName: kong-set-timeouts
+  noPublicOidcPlugin: external-system-bp-gateway-nopublic-oidc
+  route:
+    rootPath: /api/gateway/business-process
+    proxyPath: /
+
+externalSystem:
+  service:
+    name: ext-system-api-bp-gateway
+
+############## EDP VARIABLES TEST VALUES ##############################
+namespace: name
+stageName: dev
+dnsWildcard: edp-epam.com
