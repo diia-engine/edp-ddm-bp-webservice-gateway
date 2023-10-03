@@ -65,7 +65,7 @@ class StartBpEndpointIT extends BaseIT {
     var requestEnvelope = fileSource("/startBp/noSuchBpIsDefined/xml/startBpRequest.xml");
     var responseEnvelope = fileSource("/startBp/noSuchBpIsDefined/xml/startBpResponse.xml");
     mockClient().sendRequest(withSoapEnvelope(requestEnvelope))
-        .andExpect(clientOrSenderFault("No such business process defined"))
+        .andExpect(clientOrSenderFault("No such business process defined in trembita.process_definitions"))
         .andExpect(soapEnvelope(responseEnvelope));
   }
 

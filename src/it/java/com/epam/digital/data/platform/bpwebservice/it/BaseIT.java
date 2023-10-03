@@ -26,6 +26,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
 
+import com.epam.digital.data.platform.bpwebservice.BpWebserviceGatewayApplication;
 import com.epam.digital.data.platform.integration.idm.service.IdmService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -50,7 +51,7 @@ import redis.embedded.RedisCluster;
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = BpWebserviceGatewayApplication.class)
 public abstract class BaseIT {
 
   @Autowired

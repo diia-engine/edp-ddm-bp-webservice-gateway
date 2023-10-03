@@ -27,7 +27,7 @@ import org.springframework.ws.soap.server.endpoint.annotation.SoapFault;
  */
 @SoapFault(
     faultCode = FaultCode.CLIENT,
-    faultStringOrReason = "No such business process defined"
+    faultStringOrReason = "No such business process defined in trembita.process_definitions"
 )
 public class NoSuchBusinessProcessDefinedException extends RuntimeException {
 

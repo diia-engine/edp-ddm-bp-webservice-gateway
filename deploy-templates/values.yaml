@@ -1,5 +1,30 @@
 global:
-  disableRequestsLimits: false
+  container:
+    requestsLimitsEnabled: true
+  istio:
+    sidecar:
+      requestsLimitsEnabled: true
+      resources:
+        requests: {}
+        limits: {}
+  registry:
+    bpWebserviceGateway:
+      container:
+        envVars: {}
+        resources:
+          requests: {}
+          limits: {}
+      hpa:
+        enabled: false
+        minReplicas: 1
+        maxReplicas: 3
+      istio:
+        sidecar:
+          enabled: true
+          resources:
+            requests: {}
+            limits: {}
+      replicas: 1
 
 image:
   name: bp-webservice-gateway
@@ -8,7 +33,6 @@ port: 8080
 service:
   type: ClusterIP
   port: 8080
-replicas: 1
 appConfigMountPath: "/app/config/main"
 trembitaBusinessProcessesConfigMountPath: "/app/config/trembita-business-processes"
 trembitaInvokerKeycloakClientSecretsMountPath: "/app/secrets/trembita-invoker-client"
@@ -61,8 +85,6 @@ dsoURL: http://digital-signature-ops:8080
 zipkinBaseUrl: http://zipkin.istio-system:9411
 
 deployProfile: prod
-
-javaOpts: "-Xms512m -Xmx512m"
 
 kong:
   ingressName: kong-set-timeouts

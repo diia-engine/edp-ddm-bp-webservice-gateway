@@ -3,7 +3,7 @@
   <SOAP-ENV:Body>
     <SOAP-ENV:Fault>
       <faultcode>SOAP-ENV:Client</faultcode>
-      <faultstring xml:lang="en">No such business process defined</faultstring>
+      <faultstring xml:lang="en">No such business process defined in trembita.process_definitions</faultstring>
     </SOAP-ENV:Fault>
   </SOAP-ENV:Body>
 </SOAP-ENV:Envelope>

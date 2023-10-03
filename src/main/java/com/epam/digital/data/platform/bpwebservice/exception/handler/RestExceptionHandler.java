@@ -50,14 +50,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class RestExceptionHandler {
 
   /**
-   * Map {@link NoSuchBusinessProcessDefinedException} to a response entity with code 422
+   * Map {@link NoSuchBusinessProcessDefinedException} to a response entity with code 404
    *
    * @param ex exception to handle
    * @return responseEntity to return to client
    */
   @ExceptionHandler(NoSuchBusinessProcessDefinedException.class)
   public ResponseEntity<SystemErrorDto> handleException(NoSuchBusinessProcessDefinedException ex) {
-    return mapToResponseEntity(ex.getMessage(), null, HttpStatus.UNPROCESSABLE_ENTITY);
+    return mapToResponseEntity(ex.getMessage(), null, HttpStatus.NOT_FOUND);
   }
 
   /**

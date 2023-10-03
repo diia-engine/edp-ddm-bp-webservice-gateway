@@ -99,7 +99,7 @@ class StartBpControllerIT extends BaseIT {
             .contentType(MediaType.APPLICATION_JSON)
             .header("X-Access-Token", testUserToken)
             .content(request))
-        .andExpect(status().isUnprocessableEntity())
+        .andExpect(status().isNotFound())
         .andReturn()
         .getResponse()
         .getContentAsString();
@@ -107,7 +107,7 @@ class StartBpControllerIT extends BaseIT {
     var response = objectMapper.readValue(responseString, SystemErrorDto.class);
     assertThat(response)
         .hasFieldOrProperty("traceId")
-        .hasFieldOrPropertyWithValue("code", "422")
+        .hasFieldOrPropertyWithValue("code", "404")
         .hasFieldOrPropertyWithValue("localizedMessage", null)
         .hasFieldOrPropertyWithValue("message",
             "No such business process no-such-business-process-defined is defined in trembita.process_definitions");
